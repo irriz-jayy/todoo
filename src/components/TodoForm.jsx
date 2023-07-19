@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../App.css";
 
 function TodoForm() {
@@ -13,13 +15,13 @@ function TodoForm() {
     e.preventDefault();
     console.log(todo);
     if (todo.trim() === "") {
-      alert("Cannot add empty task");
+      toast.error("Cannot add empty task");
       return;
     }
 
     setTodos([...todos, todo]);
     setTodo("");
-    alert("Added");
+    toast.success("Task added successfully🎉");
   };
 
   const handleEdit = (index) => {
@@ -36,14 +38,14 @@ function TodoForm() {
     setIsModalOpen(false);
     setModalTodo("");
     setEditIndex(null);
-    alert("Edited");
+    toast.success("Successfully edited task🎉");
   };
 
   const handleDelete = (index) => {
     console.log("deleted", index);
     const updatedTodos = todos.filter((_, i) => i !== index);
     setTodos(updatedTodos);
-    alert("Deleted");
+    toast.error("Task deleted 🚮");
   };
 
   const handleDone = (index) => {
@@ -52,7 +54,7 @@ function TodoForm() {
     setDones(updatedDones);
     const updatedTodos = todos.filter((_, i) => i !== index);
     setTodos(updatedTodos);
-    alert("Done");
+    toast.success("Task done ✅");
   };
 
   return (
