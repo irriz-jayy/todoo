@@ -12,6 +12,18 @@ function TodoForm() {
     setTodo("");
   };
 
+  const handleEdit = (index) => {
+    console.log("edit", index);
+  };
+
+  const handleDelete = (index) => {
+    console.log("deleted", index);
+  };
+
+  const handleDone = (index) => {
+    console.log("done", index);
+  };
+
   return (
     <>
       <div>
@@ -28,9 +40,9 @@ function TodoForm() {
           {todos.map((todo, index) => (
             <div key={index}>
               <li>{todo}</li>
-              <button>Edit</button>
-              <button>Delete</button>
-              <button>Done</button>
+              <button onClick={() => handleEdit(index)}>Edit</button>
+              <button onClick={() => handleDelete(index)}>Delete</button>
+              <button onClick={() => handleDone(index)}>Done</button>
             </div>
           ))}
         </ul>
