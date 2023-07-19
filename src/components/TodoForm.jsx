@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../App.css";
 
 function TodoForm() {
@@ -13,13 +15,13 @@ function TodoForm() {
     e.preventDefault();
     console.log(todo);
     if (todo.trim() === "") {
-      alert("Cannot add empty task");
+      toast.error("Cannot add empty task");
       return;
     }
 
     setTodos([...todos, todo]);
     setTodo("");
-    alert("Added");
+    toast.success("Task added successfully🎉");
   };
 
   const handleEdit = (index) => {
@@ -36,14 +38,14 @@ function TodoForm() {
     setIsModalOpen(false);
     setModalTodo("");
     setEditIndex(null);
-    alert("Edited");
+    toast.success("Successfully edited task🎉");
   };
 
   const handleDelete = (index) => {
     console.log("deleted", index);
     const updatedTodos = todos.filter((_, i) => i !== index);
     setTodos(updatedTodos);
-    alert("Deleted");
+    toast.error("Task deleted 🚮");
   };
 
   const handleDone = (index) => {
@@ -52,56 +54,72 @@ function TodoForm() {
     setDones(updatedDones);
     const updatedTodos = todos.filter((_, i) => i !== index);
     setTodos(updatedTodos);
-    alert("Done");
+    toast.success("Task done ✅");
   };
 
   return (
     <>
-      <div>
-        <input
-          type="text"
-          value={todo}
-          placeholder="Add tasks"
-          onChange={(e) => setTodo(e.target.value)}
-        />
-        <button onClick={handleClick}>Create task</button>
-      </div>
-      <div>
-        <h2>Todo</h2>
-        <ul>
-          {todos.map((todo, index) => (
-            <div key={index}>
-              <li>{todo}</li>
-              <button onClick={() => handleEdit(index)}>Edit</button>
-              <button onClick={() => handleDelete(index)}>Delete</button>
-              <button onClick={() => handleDone(index)}>Done</button>
-            </div>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Done</h2>
-        <ul>
-          {dones.map((done, index) => (
-            <div key={index}>
-              <li>{done}</li>
-            </div>
-          ))}
-        </ul>
-      </div>
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <input
-              type="text"
-              value={modalTodo}
-              onChange={(e) => setModalTodo(e.target.value)}
-            />
-            <button onClick={handleSaveEdit}>Save</button>
-            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-          </div>
+      <div className="container">
+        <h2 className="heading">To-do app</h2>
+        <div>
+          <input
+            type="text"
+            value={todo}
+            className="search"
+            placeholder="Add tasks"
+            onChange={(e) => setTodo(e.target.value)}
+          />
+          <button className="button" onClick={handleClick}>
+            Create task
+          </button>
         </div>
-      )}
+        <div>
+          <h2 className="second">To be done</h2>
+          <ul>
+            {todos.map((todo, index) => (
+              <div key={index} className="todos">
+                <li>{todo}</li>
+                <button className="edit" onClick={() => handleEdit(index)}>
+                  Edit
+                </button>
+                <button className="delete" onClick={() => handleDelete(index)}>
+                  Delete
+                </button>
+                <button className="donebtn" onClick={() => handleDone(index)}>
+                  Done
+                </button>
+              </div>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="done">Already done</h2>
+          <ul>
+            {dones.map((done, index) => (
+              <div key={index} className="todosdone">
+                <li>{done}</li>
+              </div>
+            ))}
+          </ul>
+        </div>
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <input
+                type="text"
+                value={modalTodo}
+                onChange={(e) => setModalTodo(e.target.value)}
+              />
+              <button className="edit" onClick={handleSaveEdit}>
+                Save
+              </button>
+              <button className="delete" onClick={() => setIsModalOpen(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }
