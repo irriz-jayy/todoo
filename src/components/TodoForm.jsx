@@ -1,23 +1,40 @@
 import React, { useState } from "react";
 
 function TodoForm() {
-  const [todoValue, setTodoValue] = useState("");
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(todoValue);
+    console.log(todo);
 
-    setTodoValue("");
+    setTodos([...todos, todo]);
+    setTodo("");
   };
+
   return (
     <>
-      <input
-        type="text"
-        value={todoValue}
-        placeholder="Add tasks"
-        onChange={(e) => setTodoValue(e.target.value)}
-      />
-      <button onClick={handleClick}>Create task</button>
+      <div>
+        <input
+          type="text"
+          value={todo}
+          placeholder="Add tasks"
+          onChange={(e) => setTodo(e.target.value)}
+        />
+        <button onClick={handleClick}>Create task</button>
+      </div>
+      <div>
+        <ul>
+          {todos.map((todo, index) => (
+            <div key={index}>
+              <li>{todo}</li>
+              <button>Edit</button>
+              <button>Delete</button>
+              <button>Done</button>
+            </div>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
