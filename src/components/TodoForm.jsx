@@ -18,6 +18,8 @@ function TodoForm() {
 
   const handleDelete = (index) => {
     console.log("deleted", index);
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
   };
 
   const handleDone = (index) => {
@@ -36,6 +38,7 @@ function TodoForm() {
         <button onClick={handleClick}>Create task</button>
       </div>
       <div>
+        <h2>Todo</h2>
         <ul>
           {todos.map((todo, index) => (
             <div key={index}>
@@ -46,6 +49,9 @@ function TodoForm() {
             </div>
           ))}
         </ul>
+      </div>
+      <div>
+        <h2>Done</h2>
       </div>
     </>
   );
