@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function TodoForm() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [dones, setDones] = useState([]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -24,6 +25,8 @@ function TodoForm() {
 
   const handleDone = (index) => {
     console.log("done", index);
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setDones(updatedTodos);
   };
 
   return (
@@ -52,6 +55,13 @@ function TodoForm() {
       </div>
       <div>
         <h2>Done</h2>
+        <ul>
+          {dones.map((done, index) => (
+            <div key={index}>
+              <li>{done}</li>
+            </div>
+          ))}
+        </ul>
       </div>
     </>
   );
